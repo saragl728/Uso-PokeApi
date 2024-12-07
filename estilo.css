@@ -1,0 +1,14 @@
+table, th, td {
+    border: 1px #111 ridge;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #ffc;
+}
+
+* {
+    font-family: monospace;
+    margin: 4px;
+    padding: 2px;
+}
