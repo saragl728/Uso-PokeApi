@@ -2,24 +2,28 @@ const urlBase = "https://pokeapi.co/api/v2/pokemon";
 const PAGINADO = 50;
 
 var btn = document.getElementById("car");
+var atr = document.getElementById("prv");
+var sigue = document.getElementById("sig");
 var tabula = document.getElementById("cTabla");
-var pe = document.getElementById("t");
-btn.addEventListener("click", cargaDatos);
+btn.addEventListener("click", cargaListaPokemon);
+atr.addEventListener("click", atras);
+sigue.addEventListener("click", siguiente);
 
-var offset = 900;
+var offset = 0;
 var limit = PAGINADO;
 
-function getUrlLista() {
-  return `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
+function getUrlListaPokemon() {
+  return `${urlBase}?offset=${offset}&limit=${limit}`;
 }
 
-function cargaDatos() {
-  fetch(getUrlLista())
+function cargaListaPokemon() {
+  //limpio la lista por si acaso
+  tabula.innerHTML = "";
+
+  fetch(getUrlListaPokemon())
     .then((datos) => datos.json())
     .then((datos2) => {
-      console.log(getUrlLista());
       for (let i = 0; i < datos2.results.length; i++) {
-        //console.log(datos2.results[i].name);
         fila = document.createElement("tr");
         t1 = document.createElement("td");
         a1 = document.createTextNode(`${i + offset + 1}`);
@@ -36,8 +40,10 @@ function cargaDatos() {
 
 function siguiente() {
   offset += PAGINADO;
+  cargaListaPokemon();
 }
 
 function atras() {
   offset -= PAGINADO;
+  cargaListaPokemon();
 }
