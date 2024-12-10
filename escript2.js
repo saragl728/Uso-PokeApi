@@ -26,6 +26,8 @@ function muestraDatos() {
       t7 = document.createElement("td");
       t8 = document.createElement("td");
       t9 = document.createElement("td");
+      t10 = document.createElement("td");
+      t11 = document.createElement("td");
 
       a1 = document.createTextNode(datos2.id);
       t1.appendChild(a1);
@@ -55,6 +57,16 @@ function muestraDatos() {
       a9 = document.createTextNode(datos2.stats[5].base_stat);
       t9.appendChild(a9);
 
+      //tipos
+      a10 = document.createTextNode(datos2.types[0].type.name);
+      t10.appendChild(a10);
+
+      a11 =
+        datos2.types.length > 1
+          ? document.createTextNode(datos2.types[1].type.name)
+          : document.createTextNode("");
+      t11.appendChild(a11);
+
       fila.appendChild(t1);
       fila.appendChild(t2);
       fila.appendChild(t3);
@@ -64,6 +76,8 @@ function muestraDatos() {
       fila.appendChild(t7);
       fila.appendChild(t8);
       fila.appendChild(t9);
+      fila.appendChild(t10);
+      fila.appendChild(t11);
       tabula.appendChild(fila);
     });
 }
