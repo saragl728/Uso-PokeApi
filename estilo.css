@@ -12,7 +12,7 @@ th {
 * {
   font-family: monospace;
   margin: 4px;
-  padding: 2px;
+  padding: 5px;
 }
 
 tr:nth-child(even) {
