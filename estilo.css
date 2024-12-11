@@ -5,6 +5,10 @@ td {
   border-collapse: collapse;
 }
 
+table {
+  max-width: 90%;
+}
+
 th {
   background-color: #ffc;
 }
@@ -12,7 +16,7 @@ th {
 * {
   font-family: monospace;
   margin: 4px;
-  padding: 5px;
+  padding: 4px;
 }
 
 tr:nth-child(even) {
