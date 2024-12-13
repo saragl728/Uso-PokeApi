@@ -2,12 +2,14 @@ const urlBase = "https://pokeapi.co/api/v2/pokemon";
 const PAGINADO = 50;
 
 var btn = document.getElementById("car");
+var inic = document.getElementById("ini");
 var atr = document.getElementById("prv");
 var sigue = document.getElementById("sig");
 var tabula = document.getElementById("cTabla");
 btn.addEventListener("click", cargaListaPokemon);
 atr.addEventListener("click", atras);
 sigue.addEventListener("click", siguiente);
+inic.addEventListener("click", inicio);
 
 var offset = 0;
 var limit = PAGINADO;
@@ -36,6 +38,7 @@ function cargaListaPokemon() {
         tabula.appendChild(fila);
       }
     });
+  btn.removeEventListener("click", cargaListaPokemon); //quito el evento porque ya no es necesario
 }
 
 function siguiente() {
@@ -43,7 +46,18 @@ function siguiente() {
   cargaListaPokemon();
 }
 
+//para retroceder en el paginado, comprueba si puede ir atrás para que no tengar que hacer peticiones innecesarias
 function atras() {
-  offset -= PAGINADO;
-  cargaListaPokemon();
+  if (offset > 0) {
+    offset -= PAGINADO;
+    cargaListaPokemon();
+  }
+}
+
+//para ir al inicio, comprueba si ya está en el inicio para que no haga peticiones innecesarias
+function inicio() {
+  if (offset != 0) {
+    offset = 0;
+    cargaListaPokemon();
+  }
 }

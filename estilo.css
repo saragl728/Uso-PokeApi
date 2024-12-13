@@ -5,6 +5,10 @@ td {
   border-collapse: collapse;
 }
 
+td:empty {
+  background-color: #bbb;
+}
+
 table {
   max-width: 90%;
 }
@@ -21,4 +25,14 @@ th {
 
 tr:nth-child(even) {
   background-color: #ffe3bc;
+}
+
+button {
+  border: #fd0 5px inset;
+  border-radius: 3px;
+  background-color: #ffc;
+}
+
+button:hover {
+  filter: contrast(180%);
 }
