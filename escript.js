@@ -5,14 +5,17 @@ var btn = document.getElementById("car");
 var inic = document.getElementById("ini");
 var atr = document.getElementById("prv");
 var sigue = document.getElementById("sig");
+var ult = document.getElementById("final");
 var tabula = document.getElementById("cTabla");
 btn.addEventListener("click", cargaListaPokemon);
 atr.addEventListener("click", atras);
 sigue.addEventListener("click", siguiente);
 inic.addEventListener("click", inicio);
+ult.addEventListener("click", fin);
 
 var offset = 0;
 var limit = PAGINADO;
+var maxNum = -1; //primero lo pongo a -1 para luego cambiarlo
 
 function getUrlListaPokemon() {
   return `${urlBase}?offset=${offset}&limit=${limit}`;
@@ -37,6 +40,8 @@ function cargaListaPokemon() {
         fila.appendChild(t2);
         tabula.appendChild(fila);
       }
+
+      maxNum = datos2.count;
     });
   btn.removeEventListener("click", cargaListaPokemon); //quito el evento porque ya no es necesario
 }
@@ -60,4 +65,12 @@ function inicio() {
     offset = 0;
     cargaListaPokemon();
   }
+}
+
+function fin() {
+  if (maxNum != -1) {
+    offset =
+      maxNum % PAGINADO == 0 ? maxNum - PAGINADO : maxNum - (maxNum % PAGINADO);
+  }
+  cargaListaPokemon();
 }

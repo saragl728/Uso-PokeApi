@@ -5,14 +5,17 @@ var btn = document.getElementById("car");
 var atr = document.getElementById("prv");
 var inic = document.getElementById("ini");
 var sigue = document.getElementById("sig");
+var ult = document.getElementById("final");
 var tabula = document.getElementById("cTabla");
 btn.addEventListener("click", cargaListaPokemon);
 atr.addEventListener("click", atras);
 sigue.addEventListener("click", siguiente);
 inic.addEventListener("click", inicio);
+ult.addEventListener("click", fin);
 
 var offset = 900;
 var limit = PAGINADO;
+var maxNum = -1; //primero lo pongo a -1 para luego cambiarlo
 
 function getUrlListaPokemon() {
   return `${urlBase}?offset=${offset}&limit=${limit}`;
@@ -26,6 +29,7 @@ async function cargaListaPokemon() {
   const resp = await fetch(getUrlListaPokemon());
   const datos2 = await resp.json();
   lista = datos2.results;
+  maxNum = datos2.count;
   for (let i = 0; i < lista.length; i++) {
     await anyadeFila(datos2.results[i].name);
   }
@@ -124,4 +128,12 @@ function inicio() {
     offset = 0;
     cargaListaPokemon();
   }
+}
+
+function fin() {
+  if (maxNum != -1) {
+    offset =
+      maxNum % PAGINADO == 0 ? maxNum - PAGINADO : maxNum - (maxNum % PAGINADO);
+  }
+  cargaListaPokemon();
 }
