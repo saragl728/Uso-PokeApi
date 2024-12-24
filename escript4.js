@@ -3,7 +3,7 @@ const urlBase = "https://pokeapi.co/api/v2/type";
 var btn = document.getElementById("car");
 var tabula = document.getElementById("cTabla");
 var texto = document.getElementById("buscador");
-var des = document.getElementById("descr")
+var des = document.getElementById("descr");
 
 var temp = ""; //variable que almacena el nombre del último tipo buscado
 
@@ -16,19 +16,23 @@ function getUrl() {
 //se usa async para que salga en orden
 async function muestraDatos() {
   if (texto.value.trim() != "") {
-    const resp = await fetch(getUrl());
-    const datos2 = await resp.json();
+    try {
+      const resp = await fetch(getUrl());
+      const datos2 = await resp.json();
+      if (temp != datos2.name) {
+        des.textContent = `Se han encontrado ${datos2.pokemon.length} Pokémon`;
+        temp = datos2.name; //si se busca el mismo tipo, no se recrea la tabla
+        lista = datos2.pokemon;
 
-    if (temp != datos2.name) {
-      des.textContent = `Se han encontrado ${datos2.pokemon.length} Pokémon`
-      temp = datos2.name; //si se busca el mismo tipo, no se recrea la tabla
-      lista = datos2.pokemon;
+        tabula.innerHTML = "";
 
-      tabula.innerHTML = "";
-
-      for (let i = 0; i < lista.length; i++) {
-        await anyadeFila(lista[i].pokemon.name);
+        for (let i = 0; i < lista.length; i++) {
+          await anyadeFila(lista[i].pokemon.name);
+        }
       }
+    } catch (e) {
+      des.textContent = "El tipo que buscas no existe.";
+      tabula.innerHTML = "";
     }
   }
 }

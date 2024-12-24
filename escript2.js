@@ -3,6 +3,7 @@ const urlBase = "https://pokeapi.co/api/v2/pokemon";
 var btn = document.getElementById("car");
 var tabula = document.getElementById("cTabla");
 var texto = document.getElementById("buscador");
+var des = document.getElementById("descr");
 
 var temp = ""; //variable que almacena el nombre del último pokémon buscado
 
@@ -21,6 +22,7 @@ function muestraDatos() {
         if (temp != datos2.name) {
           tabula.innerHTML = "";
           temp = datos2.name;
+          des.textContent = `Datos del Pokémon ${temp}`
 
           fila = document.createElement("tr");
           t1 = document.createElement("td");
@@ -86,6 +88,9 @@ function muestraDatos() {
           fila.appendChild(t11);
           tabula.appendChild(fila);
         }
-      });
+      })
+      .catch((e) =>
+        des.textContent = `No se ha encontrado el Pokémon que buscas`
+      );
   }
 }
